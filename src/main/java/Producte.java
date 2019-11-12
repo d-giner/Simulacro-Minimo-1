@@ -1,17 +1,17 @@
 public class Producte {
 
-    public String nom;
+    public String id;
     public int vendes;
     public double preu;
 
     public Producte(String n, double p) {
-        this.nom =  n;
+        this.id =  n;
         this.vendes = 0;
         this.preu = p;
     }
 
-    public String getNom(){
-        return this.nom;
+    public String getId(){
+        return this.id;
     }
 
     public void setVendes(int v){
@@ -26,4 +26,7 @@ public class Producte {
         return this.preu;
     }
 
+    public void updateNumVendes(int q) {
+        this.vendes+=q;
+    }
 }

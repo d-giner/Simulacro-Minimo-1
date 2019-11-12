@@ -1,33 +1,38 @@
 import java.util.*;
 
+
 public class Usuari {
 
     public String nom;
-    public int id;
-    public int totalComandes;
-
-    public List<Integer> lComandes = new List<Integer>(); /**Qué pasaaaaaaaaaa, no me deja crear la lista de enteros*/
+    public String id;
+    private List<Comanda> comandes;
 
 
-    public Usuari(String n, int i){
-        this.nom = n;
-        this.id = i;
-        this.totalComandes = 0;
+    public Usuari(String id, String name, String surname){
+        this.id = id;
+        this.nom=name;
+        this.comandes = new LinkedList<Comanda>();
     }
 
+    public Usuari(String n, int i){ /** Constructor d'Usuari: nom, identificador i nombre total de comandes. */
+        this.nom = n;
+        this.id = ""+i;
+    }
+
+    /** Mètodes per actualitzar i llegir els atributs */
     public String getNom(){
         return this.nom;
     }
 
-    public int getId(){
+    public String getId(){
         return this.id;
     }
 
-    public void setTotalComandes(int modComandes){
-        this.totalComandes += modComandes;
+    public void addComanda(Comanda comanda) {
+        this.comandes.add(comanda);
     }
 
-    public int getTotalComandes() {
-        return this.totalComandes;
+    public List<Comanda> getComandesUsuari(){
+        return this.comandes;
     }
 }
