@@ -1,4 +1,3 @@
-import kotlin.reflect.jvm.internal.impl.types.model.TypeSystemOptimizationContext;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import java.util.*;
@@ -15,11 +14,23 @@ public class GestorImplementat implements Gestor {
     /** Singleton end line */
 
     public Logger log = LogManager.getLogger(GestorImplementat.class);
-    public List<Producte> lProductes = new ArrayList<Producte>(); /** Llistat de productes */
-    public HashMap<String, Usuari> lUsuaris = new HashMap<String, Usuari>(); /** Llistat d'usuaris */
-    public Queue<Comanda> cuaComanda = new LinkedList<Comanda>();; /** Cua de comandes */
+    private List<Producte> lProductes = null; /** Llistat de productes */
+    private HashMap<String, Usuari> lUsuaris = null;  /** Llistat d'usuaris */
+    private Queue<Comanda> cuaComanda = null;  /** Cua de comandes */
 
     public int numComandes = 0;
+
+    private GestorImplementat() {
+        lProductes = new ArrayList<Producte>(); /** Llistat de productes */
+        lUsuaris = new HashMap<String, Usuari>(); /** Llistat d'usuaris */
+        cuaComanda = new LinkedList<Comanda>();; /** Cua de comandes */
+    }
+
+    public void clear() {
+        lProductes.clear();
+        lUsuaris.clear();
+        cuaComanda.clear();
+    }
 
     public void afegirUsuari(String id, String name, String surname) {
         this.lUsuaris.put(id, new Usuari(id, name, surname));
@@ -30,7 +41,7 @@ public class GestorImplementat implements Gestor {
     }
 
     public void anotarComanda(Comanda p) {
-       this.cuaComanda.add(p);
+        this.cuaComanda.add(p);
     }
 
     public void servirComanda() { /** La comanda es du a terme, es treu de la cua i s'afegeix a la llista general */
@@ -56,16 +67,18 @@ public class GestorImplementat implements Gestor {
         return null;
     }
 
-    public void consultarComandesUsuari(String id) {
+    public List<Comanda> consultarComandesUsuari(String id) { /** PASSAR AL TEST LA PART DEL FOR!!! */
         Usuari u = lUsuaris.get(id);
-        for (Comanda c : u.getComandesUsuari()){ /* Per cada comanda dins de la llista de comandes de l'usuari... */
-            for (Comanda.LP p : c.productesDemanats){ /* Per cada producte dins de la llista de productes demanats... */
-                log.info("L'usuari " + u.getNom() + " ha consumit: Producte: " + p.p + ", Quantitat: " + p.q);
-            }
-        }
+        return u.getComandesUsuari();
+        /*
+        for (dsa.Comanda c : u.getComandesUsuari()){ /* Per cada comanda dins de la llista de comandes de l'usuari... */
+        // for (dsa.Comanda.LP p : c.productesDemanats){ /* Per cada producte dins de la llista de productes demanats... */
+        //   log.info("L'usuari " + u.getNom() + " ha consumit: dsa.Producte: " + p.p + ", Quantitat: " + p.q);
+        //}
+        /* }*/
     }
 
-    public List<Producte> ordenarProductesVendes() {
+    public List<Producte> ordenarProductesVendes() { /** PASSAR AL TEST LA PART DEL FOR!!! */
         List<Producte> lAux = new ArrayList<Producte>();
         lAux.addAll(lProductes);
         Collections.sort(lAux, new Comparator<Producte>() {
@@ -80,7 +93,18 @@ public class GestorImplementat implements Gestor {
         return lAux;
     }
 
-    public List<Producte> ordenarProductesPreu() {
+    public int numUsers() {
+        return this.lUsuaris.size();
+    }
+    public int numComandes() {
+        return this.cuaComanda.size();
+    }
+    public int numProducts() {
+        return this.lProductes.size();
+    }
+
+
+    public List<Producte> ordenarProductesPreu() { /** PASSAR AL TEST LA PART DEL FOR!!! */
         List<Producte> lAux = new ArrayList<Producte>();
         lAux.addAll(lProductes);
         Collections.sort(lAux, new Comparator<Producte>() {

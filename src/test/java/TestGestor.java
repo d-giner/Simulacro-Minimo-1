@@ -1,12 +1,11 @@
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-
-
 public class TestGestor {
 
-    public GestorImplementat gestor = GestorImplementat.getInstance(); /** Singleton */
+    public GestorImplementat gestor = null;  /** Singleton */
 
     private void afegirUsuaris() {
         gestor.afegirUsuari("38383773X","Alberto","");
@@ -21,19 +20,29 @@ public class TestGestor {
     }
 
     @Before
-    public void SetUp () {
-        gestor = new GestorImplementat();
+    public void setUp () {
+        gestor = GestorImplementat.getInstance();
         afegirUsuaris();
         afegirProductes();
     }
 
+    @After
+    public void tearDown(){
+        gestor.clear();
+    }
+
     @Test
     public void testInicialitzador(){
-        Assert.assertEquals("Nombre d'usuaris a llista.", 3, this.gestor.lUsuaris.size());
+        Assert.assertEquals("Nombre d'usuaris a llista.", 3, this.gestor.numUsers());
+        Assert.assertEquals("Nombre de productes a llista.", 3, this.gestor.numProducts());
     }
 
     @Test
     public void testAnotarServirComanda(){
+
+        Assert.assertEquals("Nombre d'usuaris a llista.", 3, this.gestor.numUsers());
+        Assert.assertEquals("Nombre de productes a llista.", 3, this.gestor.numProducts());
+
         Comanda p = new Comanda();
         p.addUser("383837B");
         p.addLP(3, "cola" );
@@ -51,7 +60,7 @@ public class TestGestor {
         gestor.servirComanda();
 
         Assert.assertEquals("Servir Comanda", 3,gestor.getProducte("cola").getVendes());
-        Assert.assertEquals("Comandes a la cua",0,gestor.cuaComanda.size());
+        Assert.assertEquals("Comandes a la cua",0,gestor.numComandes());
         Assert.assertEquals("",2,gestor.numComandes);
 
         gestor.consultarComandesUsuari("38383773X");
@@ -61,6 +70,9 @@ public class TestGestor {
 
     @Test
     public void testConsultarComandesUsuari(){
+        Assert.assertEquals("Nombre d'usuaris a llista.", 3, this.gestor.numUsers());
+        Assert.assertEquals("Nombre de productes a llista.", 3, this.gestor.numProducts());
+
         Comanda p = new Comanda();
         p.addUser("383837B");
         p.addLP(3, "cola" );
@@ -81,6 +93,9 @@ public class TestGestor {
 
     @Test
     public void testOrdreLlistaProductes(){
+        Assert.assertEquals("Nombre d'usuaris a llista.", 3, this.gestor.numUsers());
+        Assert.assertEquals("Nombre de productes a llista.", 3, this.gestor.numProducts());
+
         Comanda p = new Comanda();
         p.addUser("383837B");
         p.addLP(3, "cola" );

@@ -1,6 +1,5 @@
 import java.util.*;
 
-
 public class Usuari {
 
     public String nom;
@@ -14,7 +13,7 @@ public class Usuari {
         this.comandes = new LinkedList<Comanda>();
     }
 
-    public Usuari(String n, int i){ /** Constructor d'Usuari: nom, identificador i nombre total de comandes. */
+    public Usuari(String n, int i){ /** Constructor d'dsa.Usuari: nom, identificador i nombre total de comandes. */
         this.nom = n;
         this.id = ""+i;
     }
