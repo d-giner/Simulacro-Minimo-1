@@ -1,3 +1,5 @@
+package edu.upc.dsa;
+
 import java.util.*;
 
 public interface Gestor {
