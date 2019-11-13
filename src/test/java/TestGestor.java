@@ -6,7 +6,7 @@ import org.junit.Test;
 
 public class TestGestor {
 
-    public GestorImplementat gestor = null;
+    public GestorImplementat gestor = GestorImplementat.getInstance(); /** Singleton */
 
     private void afegirUsuaris() {
         gestor.afegirUsuari("38383773X","Alberto","");

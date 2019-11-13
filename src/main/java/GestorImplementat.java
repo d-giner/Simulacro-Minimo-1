@@ -5,13 +5,21 @@ import java.util.*;
 
 public class GestorImplementat implements Gestor {
 
+    /** Singleton */
+    private static GestorImplementat instance;
+
+    public static GestorImplementat getInstance(){
+        if (instance == null) instance = new GestorImplementat();
+        return instance;
+    }
+    /** Singleton end line */
+
     public Logger log = LogManager.getLogger(GestorImplementat.class);
     public List<Producte> lProductes = new ArrayList<Producte>(); /** Llistat de productes */
     public HashMap<String, Usuari> lUsuaris = new HashMap<String, Usuari>(); /** Llistat d'usuaris */
     public Queue<Comanda> cuaComanda = new LinkedList<Comanda>();; /** Cua de comandes */
 
     public int numComandes = 0;
-
 
     public void afegirUsuari(String id, String name, String surname) {
         this.lUsuaris.put(id, new Usuari(id, name, surname));
